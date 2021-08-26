@@ -1,10 +1,19 @@
+import React, {useState} from 'react';
+import Login from "./views/Login";
+import Galery from "./views/Galeria";
+import { Route, Redirect } from 'react-router-dom'
+
 function App() {
+
+  const [active, setActive]=useState(false);
+
   return (
     <>
-      <h1>Tailwind css daisyUi</h1>
-      <button class="btn btn-primary">DaisyUI Button</button>
-    </>
+        {active ? <Route path='/' component={Galery} exact={true} /> : <Redirect to='/login' />}
+        <Route path='/login' component={Login} />
+    </> 
   );
 }
+
 
 export default App;
