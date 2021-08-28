@@ -24,7 +24,7 @@ const useStorage = (file) => {
             const url = await storageRef.getDownloadURL();
 
             if(url){
-                await db.collection('images').add({url, userUid: user.uid});
+                await db.collection('images').add({url, userUid: user.uid, nameImage: file.name});
                 setUrl(url);
             }
 

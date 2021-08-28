@@ -2,26 +2,27 @@ import styled from 'styled-components';
 import useObtenerPhotos from '../../../hooks/useObtenerPhtos';
 import { motion } from 'framer-motion';
 
-const CardImage = () => {
+const CardImage = ({ onOpenModal }) => {
 
     const [photos]=useObtenerPhotos();
-    console.log(photos);
+    
     return ( 
         <Container>
             {
                 photos.length === 0 ? <h2>No hay fotos para mostrar</h2> : 
                 photos.map((photo)=>{
                     return(
-                        <motion.div 
-                            key={photo.id} 
-                            className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer "
-                            animate = {{ scale: [1, 1.1, 1] }}
-                            transition = {{ duration: 1 }}
-                        >
+                        <div    key={photo.id} 
+                                className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer " 
+                                onClick={()=>onOpenModal(photo.url, photo.nameImage, photo.id)} >
                             <figure>
-                                <img src={photo.url} alt={photo.id} />
+                                <motion.img src={photo.url} alt={photo.id} 
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 1 }}
+                                />
                             </figure>
-                        </motion.div>
+                        </div>
                     );
                 })
             }
