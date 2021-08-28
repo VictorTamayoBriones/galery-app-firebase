@@ -3,21 +3,43 @@ import styled from 'styled-components';
 import AddPhoto from './components/AddPhoto';
 import Progress from './components/Progress';
 import CardImage from './components/CardImage';
+import LogOut from './components/LogOut';
+import { auth } from '../../firebase/firebaseConfig';
+import { useHistory } from 'react-router';
 
 const Galery = () => {
 
-    const [file, setFile]=useState(false);
+    const history = useHistory();
+    const types = ['image/png', 'image/jpeg'];
+    const [file, setFile]=useState(null);
 
     const handleChangeFile = (e)=>{
         let selected = e.target.files[0];
-        setFile(true);
-        console.log(selected);
+        if( selected && types.includes(selected.type) ){
+            setFile(selected);
+            console.log(selected);
+        }else{
+            alert('Usa un archivo PNG o JPEG');
+            setFile(null);
+        }
+    }
+
+    const fileNull = ()=> setFile(null);
+
+    const logOut = async ()=>{
+        try{
+            await auth.signOut();
+            history.push('/login');
+        }catch(err){
+            alert(err);
+        }
     }
 
     return (  
         <Container>
             <AddPhoto onChangeFile={handleChangeFile} />
-            { file && <Progress />}
+            <LogOut onOut={logOut} />
+            { file && <Progress file={file} onNull={fileNull} />}
             <CardImage/>
         </Container>
     );

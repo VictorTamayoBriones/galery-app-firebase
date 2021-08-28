@@ -1,48 +1,24 @@
 import styled from 'styled-components';
+import useObtenerPhotos from '../../../hooks/useObtenerPhtos';
 
 const CardImage = () => {
+
+    const [photos]=useObtenerPhotos();
+    console.log(photos);
     return ( 
         <Container>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/0db3fb32752957.5692a9a599011.jpg" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
-        <div className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
-            <figure>
-                <img src="https://picsum.photos/id/1005/400/250" alt="" />
-            </figure>
-        </div>
+            {
+                photos.length === 0 ? <h2>No hay fotos para mostrar</h2> : 
+                photos.map((photo)=>{
+                    return(
+                        <div key={photo.id} className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
+                            <figure>
+                                <img src={photo.url} alt={photo.id} />
+                            </figure>
+                        </div>
+                    );
+                })
+            }
         </Container>
     );
 }
@@ -55,6 +31,10 @@ const Container = styled.div`
     gap: 12px;
     justify-content: center;
     flex-wrap: wrap;
+    h2{
+        font-size: 50px;
+        font-weight: bold;
+    }
 `;
 
 export default CardImage;
