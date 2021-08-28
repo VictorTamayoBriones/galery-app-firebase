@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import useObtenerPhotos from '../../../hooks/useObtenerPhtos';
+import { motion } from 'framer-motion';
 
 const CardImage = () => {
 
@@ -11,11 +12,16 @@ const CardImage = () => {
                 photos.length === 0 ? <h2>No hay fotos para mostrar</h2> : 
                 photos.map((photo)=>{
                     return(
-                        <div key={photo.id} className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer ">
+                        <motion.div 
+                            key={photo.id} 
+                            className="card shadow-2sm max-w-sm overflow-hidden max-h-48 cursor-pointer "
+                            animate = {{ scale: [1, 1.1, 1] }}
+                            transition = {{ duration: 1 }}
+                        >
                             <figure>
                                 <img src={photo.url} alt={photo.id} />
                             </figure>
-                        </div>
+                        </motion.div>
                     );
                 })
             }
