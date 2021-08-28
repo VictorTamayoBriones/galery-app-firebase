@@ -6,12 +6,18 @@ import CardImage from './components/CardImage';
 
 const Galery = () => {
 
-    const [subiendo, setSubiendo]=useState(false);
+    const [file, setFile]=useState(false);
+
+    const handleChangeFile = (e)=>{
+        let selected = e.target.files[0];
+        setFile(true);
+        console.log(selected);
+    }
 
     return (  
         <Container>
-            <AddPhoto/>
-            { subiendo && <Progress/>}
+            <AddPhoto onChangeFile={handleChangeFile} />
+            { file && <Progress />}
             <CardImage/>
         </Container>
     );
