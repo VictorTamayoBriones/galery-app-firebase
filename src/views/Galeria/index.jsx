@@ -24,7 +24,6 @@ const Galery = () => {
         let selected = e.target.files[0];
         if( selected && types.includes(selected.type) ){
             setFile(selected);
-            console.log(selected);
         }else{
             alert('Usa un archivo PNG o JPEG');
             setFile(null);
